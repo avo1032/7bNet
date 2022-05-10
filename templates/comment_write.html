@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>같이보자NET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+    <link href='{{ url_for("static", filename="mystyle.css") }}' rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+    <script>
+
+        function save_comment() {
+            let comment = $('#comment').val()
+            let star = $('#star').val()
+
+            $.ajax({
+                type: "POST",
+                url: "/comment/write",
+                data: {star_give: star, comment_give: comment},
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.reload()
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+<div class="banner_set">
+    <div class="banner" onclick="window.location.href='/'"></div>
+    <span class="nickname_banner"><span class="nickname">김르탄</span>님,
+                안녕하세요.</span></div>
+</div>
+️
+<div class="wrap">
+        <span class="main_title">컨텐츠 제목의
+        리뷰를 작성해주세요.</span>
+    <div>
+        <select name="job" class="select_box" id="star">
+            <option selected><span class="selected"> 평점을 골라주세요.</span></option>
+            <option value="1">⭐️</option>
+            <option value="2">️‍️⭐️⭐️</option>
+            <option value="3">⭐️⭐️⭐️</option>
+            <option value="4">⭐️⭐️⭐⭐️</option>
+            <option value="5">⭐️⭐️⭐⭐⭐️</option>
+        </select>
+    </div>
+    <textarea class="textarea_box" id="comment" placeholder="    소감을 공유해주세요."></textarea>
+    <button class="comment_btn" onclick="save_comment()">작성 완료!</button>
+</div>
+</body>
+</html>
