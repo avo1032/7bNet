@@ -1,0 +1,281 @@
+/*1. 헤더에 공통으로 들어가는 css*/
+.banner {
+    width: 306px;
+    height: 94px;
+
+    background-image: url('Logonetflix.png');
+
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 50px auto;
+
+    cursor: pointer;
+}
+
+.nickname {
+    font-weight: bold;
+}
+
+.banner_set {
+    max-width: 1138px;
+    width: 95%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nickname_banner {
+    color: white;
+    white-space: pre-line;
+}
+
+/*2. 리뷰페이지에 들어가는 css*/
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+.nicknameWithComment {
+    color: white;
+    white-space: pre-line;
+}
+
+.main_title {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.wrap {
+    max-width: 1138px;
+    width: 95%;
+    margin: 26px auto;
+}
+
+.star {
+    background-color: transparent;
+    border: 0.8px solid #FF4040;
+    color: #FF4040;
+    border-radius: 4px;
+}
+
+.star_num {
+    font-weight: 600;
+}
+
+.comment {
+    background-color: transparent;
+    border: 0.8px solid white;
+    color: white;
+    border-radius: 4px;
+    margin-left: 6px;
+}
+
+.contents_wrap {
+    max-width: 1138px;
+    height: 100%;
+
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.contents_img {
+    min-width: 412px;
+    width: 412px;
+    height: 610px;
+    background-image: url('https://post-phinf.pstatic.net/MjAyMDEyMjFfMTIy/MDAxNjA4NTQ4NzkxMjgx.U-d3SPl6xMUb-t0xjfdGtQbTDlHPSkIo6Yk7Q4qOkLEg.eokYMRC5lyFTOBYOJAxVEyarSf4w_cfV1GSDHcPxihEg.JPEG/sweethomeposter.jpg?type=w1200');
+    background-position: center 30%;
+    background-size: cover;
+    color: white;
+    margin-top: 20px;
+
+}
+
+.comment_box {
+    max-width: 660px;
+    width: 100%;
+    background: #1C1C1C 0% 0% no-repeat padding-box;
+    margin: 20px 20px 6px 20px;
+    padding: 20px 30px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 22px;
+}
+
+.comment_body {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment_box_wrap {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    border-radius: 22px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.titleWithBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.comment_btn {
+    width: 130px;
+    height: 44px;
+
+    background-color: white;
+    border-radius: 10px;
+    border: 0px solid white;
+
+    font-size: 16px;
+}
+
+.comment_btn:hover {
+    opacity: 0.7;
+}
+
+.like_icon {
+    width: 23px;
+    height: 21.5px;
+    background-image: url('good.png');
+    background-position: center 30%;
+    background-size: cover;
+}
+
+.like_icon:hover {
+    width: 23px;
+    height: 21.5px;
+    background-image: url('good_check.png');
+    background-position: center 30%;
+    background-size: cover;
+}
+
+
+.like_set {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.like_num {
+    color: white;
+    font-size: 16px;
+    margin-left: 6px;
+}
+
+.user_star {
+    margin: 0px 0px 6px 0px;
+    color: #5A5A5A;
+    opacity: 0.8;
+}
+
+/*3. 리뷰작성 페이지에 들어가는 css*/
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+.main_title {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    white-space: pre-line;
+}
+
+.wrap {
+    max-width: 1138px;
+    width: 95%;
+    margin: 16px auto;
+}
+
+.comment_btn {
+    width: 130px;
+    height: 44px;
+
+    background-color: white;
+    border-radius: 10px;
+    border: 0px solid white;
+
+    font-size: 16px;
+    margin-top: 20px;
+    float: right;
+}
+
+.comment_btn:hover {
+    opacity: 0.7;
+}
+
+.select_box {
+    width: 100%;
+    height: 70px;
+    margin-top: 30px;
+    background: #1C1C1C;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid #1C1C1C;
+    padding: 16px;
+
+    /*셀렉트박스 화살표 없애주는 코드*/
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+.select option {
+    background: black;
+    color: #fff;
+    padding: 3px 0;
+}
+
+.textarea_box {
+    width: 100%;
+    height: 180px;
+    margin-top: 20px;
+    background: #1C1C1C;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid #1C1C1C;
+}
+
+textarea {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+textarea::placeholder {
+    color: #5A5A5A;
+    font-size: 16px;
+}
+
