@@ -23,14 +23,24 @@
         function save_comment() {
             let comment = $('#comment').val()
             let star = $('#star').val()
+            let title = "{{ title }}"
+            let nick = "{{ user_info.nickname }}"
+
 
             $.ajax({
                 type: "POST",
-                url: "/comment/write",
-                data: {star_give: star, comment_give: comment},
+                url: "/write_post",
+                data: {star_give: star, comment_give: comment, title_give: title, nick_give: nick},
                 success: function (response) {
+                    if (star == "평점을 골라주세요.") {
+                        alert('평점을 선택해주세요!')
+                        return
+                    } else if (comment == "") {
+                        alert('리뷰를 작성하지 않았어요ㅠㅠ')
+                        return
+                    }
                     alert(response["msg"])
-                    window.location.reload()
+                    window.location.href='/comment/{{ title }}'
                 }
             });
         }
@@ -40,14 +50,14 @@
 <body>
 
 <div class="banner_set">
+    <span class="back" onclick="window.location.href='/comment/{{ title }}'"></span>
     <div class="banner" onclick="window.location.href='/'"></div>
-    <span class="nickname_banner"><span class="nickname">김르탄</span>님,
+    <span class="nickname_banner"><span class="nickname">{{ user_info.nickname }}</span>님,
                 안녕하세요.</span></div>
 </div>
 ️
 <div class="wrap">
-        <span class="main_title">컨텐츠 제목의
-        리뷰를 작성해주세요.</span>
+        <span class="main_title">{{ title }}</span>
     <div>
         <select name="job" class="select_box" id="star">
             <option selected><span class="selected"> 평점을 골라주세요.</span></option>

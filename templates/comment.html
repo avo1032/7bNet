@@ -30,22 +30,25 @@
         function show_comment() {
             $.ajax({
                 type: "GET",
-                url: "/comment",
+                url: "/comment_get",
                 data: {},
                 success: function (response) {
                     let rows = response['comments']
                     for (let i = 0; i < rows.length; i++) {
                         let comment = rows[i]['comment']
+                        let nickname = rows[i]['nickname']
                         let star = rows[i]['star']
                         let num = rows[i]['num']
                         let like_count = rows[i]['like_count']
+                        let title = rows[i]['title']
 
                         let star_image = '⭐'.repeat(star)
 
-                        let temp_html = `<div class="comment_box" id="comment_box(${num})">
+                        if (comment != "" && star != "평점을 골라주세요.") {
+                            let temp_html = `<div class="comment_box" id="comment_box(${num})">
                                                 <div class="comment_body">
                                                      <span class="user_star">${star_image}️</span>
-                                                    <span class="nicknameWithComment"><span class="nickname">김르탄</span>
+                                                    <span class="nicknameWithComment"><span class="nickname">${nickname}</span>
                                                         ${comment}</span>
 
                                                 </div>
@@ -53,8 +56,11 @@
                                                                     <span class="like_icon"></span><span class="like_num">${like_count}</span>
                                                                 </div>
                                             </div>`
+                            if(title=="{{ title }}")
+                            $('#comment_list').append(temp_html)
+                        }
 
-                        $('#comment_list').append(temp_html)
+
                     }
                 }
             });
@@ -65,33 +71,42 @@
 <body>
 
 <div class="banner_set">
+    <span class="back" onclick="window.location.href='/'"></span>
     <div class="banner" onclick="window.location.href='/'"></div>
-    <span class="nickname_banner"><span class="nickname">김르탄</span>님,
+    <span class="nickname_banner"><span class="nickname">{{ user_info.nickname }}</span>님,
                 안녕하세요.</span></div>
 </div>
 <div class="wrap">
     <button class="star">평점 <span class="star_num">4.7</span></button>
     <button class="comment">리뷰 수 <span class="comment_num">435</span></button>
     <div class="titleWithBtn">
-        <span class="main_title">컨텐츠 제목은 여기에</span>
-        <button class="comment_btn">리뷰 작성하기</button>
+        <span class="main_title">{{ title }}</span>
+        <button class="comment_btn" onclick="window.location.href='/write/{{ title }}'">리뷰 작성하기</button>
     </div>
 
 
     <div class="contents_wrap">
-        <div class="contents_img">
+        <div style="
+                min-width: 412px;
+                width: 412px;
+                height: 610px;
+                background-image: url('{{ image.img }}');
+                background-position: center 30%;
+                background-size: contain;
+                color: white;
+                margin-top: 20px;">
         </div>
         <div class="comment_box_wrap" id="comment_list">
             <div class="comment_box">
                 <div class="comment_body">
-                     <span class="user_star">⭐⭐⭐️</span>
+                    <span class="user_star">⭐⭐⭐️</span>
                     <span class="nicknameWithComment"><span class="nickname">김르탄</span>
                         생각보다 넘 재밌어요</span>
 
                 </div>
-                                <div class="like_set">
-                                    <span class="like_icon"></span><span class="like_num">23</span>
-                                </div>
+                <div class="like_set">
+                    <span class="like_icon"></span><span class="like_num">23</span>
+                </div>
             </div>
 
         </div>

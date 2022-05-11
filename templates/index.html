@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <title>같이보자Net |</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        body {
+            background-color: black;
+        }
+        .banner {
+            width: 306px;
+            height: 94px;
+
+            background-image: url('{{ url_for("static", filename="logonetflix.png")}}');
+
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 50px auto;
+
+            cursor: pointer;
+        }
+
+        .nickname {
+            font-weight: bold;
+        }
+
+        .banner_set {
+            max-width: 1138px;
+            width: 95%;
+            margin: auto;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nickname_banner {
+            color: white;
+            white-space: pre-line;
+        }
+        .btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            ;
+        }
+
+        .contents {
+            width: 100%;
+            height: 80px;
+
+            background-color: black;
+            color: white;
+        }
+
+        .mycards {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+    </style>
+
+    <script>
+        $(document).ready(function(){
+          listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: 'GET',
+                url: '/_get',
+                data: {},
+                success: function (response) {
+                    let rows = response['movies']
+                    for (let i = 0; i < rows.length; i++) {
+                        let title = rows[i]['title']
+                        let image = rows[i]['img']
+
+                        let temp_html = `<div class="col" onclick="window.location.href='/comment/${title}'">
+                                            <div class="card h-100">
+                                                <img src="${image}"
+                                                     class="card-img-top">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${title}</h5>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <small class="text-muted">
+                                                        <h11 class="count_star">평점</h11> <h11>리뷰 수</h11> </small>
+                                                </div>
+                                            </div>
+                                        </div>`
+
+                        $('#cards-box').append(temp_html)
+                    }
+                }
+            })
+        }
+
+        function posting() {
+            let url = $('#url').val()
+            let star = $('#star').val()
+            let comment = $('#comment').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/review',
+                data: {url_give:url, star_give:star, comment_give:comment},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+        }
+
+        function open_box(){
+            $('#post-box').show()
+        }
+        function close_box(){
+            $('#post-box').hide()
+        }
+    </script>
+</head>
+
+<body>
+    <div class="banner_set">
+        <div class="banner" onclick="window.location.href='/'"></div>
+        <span class="nickname_banner">
+            <span class="nickname">{{ user_info.nickname }}</span>님,
+                    안녕하세요.</span>
+    </div>
+
+    <div class="contents">
+        <h2>오늘의 리뷰왕 컨텐츠🔥</h2>
+    </div>
+    <div class="mycards">
+    <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
+    </div>
+    </div>
+</body>
+
+</html>

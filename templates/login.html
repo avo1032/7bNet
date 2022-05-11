@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+        <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Hi+Melody&family=Jua&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <style>
+        body{
+            background-color: black;
+        }
+        * {
+           font-family: 'Noto Sans KR', sans-serif;
+        }
+        .bNet{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero {
+            width: 50%;
+            height: 100%;
+            background-color: black;
+
+            justify-content: flex-end;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-body > img{
+            width: 412px;
+            height: 126px;
+            margin-top: 70px;
+        }
+        .title {
+            font-weight: 800;
+            font-size: 40px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: white;
+        }
+        /*.section{!* Layout Properties *!*/
+        /*    top: 269px;*/
+        /*    left: 1054px;*/
+        /*    width: 430px;*/
+        /*    height: 543px;*/
+        /*    !* UI Properties *!*/
+        /*    opacity: 1;*/
+        /*    background-color: green;*/
+        /*    */
+        /*}*/
+        .section{
+            width: 50%;
+            height: 1000px;
+            float: right;
+
+
+        }
+        .id_pw{
+            /* UI Properties */
+            text-align: left;
+            letter-spacing: 0px;
+            color: white;
+            opacity: 1;
+            font-size: 25px;
+        }
+        .is-primary{
+            width: 430px;
+            height: 56px;
+        }
+        .is-white{
+            width: 430px;
+            height: 69px;
+        }
+        .is-black2{
+            width: 430px;
+            height: 69px;
+            border: 1px solid white;
+            border-radius: 10px;
+            opacity: 1;
+            background-color: black;
+            color:white;
+            margin-top: 20px;
+
+        }
+    </style>
+    <script>
+        function movesign_up(){
+            location.href = "/sign_up"
+        }
+
+        function sign_in() {
+            let username = $("#input-username").val()
+            let password = $("#input-password").val()
+
+            if (username == "") {
+                $("#help-id-login").text("아이디를 입력해주세요.")
+                $("#input-username").focus()
+                return;
+            } else {
+                $("#help-id-login").text("")
+            }
+
+            if (password == "") {
+                $("#help-password-login").text("비밀번호를 입력해주세요.")
+                $("#input-password").focus()
+                return;
+            } else {
+                $("#help-password-login").text("")
+            }
+            $.ajax({
+                type: "POST",
+                url: "/sign_in",
+                data: {
+                    username_give: username,
+                    password_give: password
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        $.cookie('mytoken', response['token'], {path: '/'});
+                        window.location.replace("/")
+                    } else {
+                        alert(response['msg'])
+                    }
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+<div class="bNet">
+    <section class="hero">
+        <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
+            <h1 class="title">뭘 봐야할지 모르겠을 땐,</h1>
+            <img src="../static/logonetflix.png">
+        </div>
+    </section>
+    <section class="section">
+        <br><br><br><br><br><br><br><br>
+        <h1 class="id_pw">아이디</h1>
+        <input class="input is-primary" type="text" id="input-username" placeholder="아이디를 입력해주세요" style="margin-top:10px;">
+        <h1 id="help-id-login" class="help is-danger"></h1>
+
+        <h1 class="id_pw" style="margin-top: 10px;">비밀번호</h1>
+        <input class="input is-primary" type="password" id="input-password" placeholder="비밀번호를 입력해주세요">
+        <h1 id="help-password-login" class="help is-danger"></h1>
+
+        <button class="button is-white" style="margin-top: 100px;" onclick="sign_in()">로그인하기</button>
+        <br>
+        <button class="button is-black2" onclick="movesign_up()">회원가입하기</button>
+
+    </section>
+</div>
+</body>
+</html>
