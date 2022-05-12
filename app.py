@@ -14,7 +14,12 @@ app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 SECRET_KEY = 'SPARTA'
 
 from pymongo import MongoClient
-client = MongoClient('mongodb+srv://test:sparta@cluster0.8gkps.mongodb.net/Cluster0?retryWrites=true&w=majority')
+import certifi
+
+ca = certifi.where()
+
+client = MongoClient('mongodb+srv://test:sparta@cluster0.h3qxi.mongodb.net/Cluster0?retryWrites=true&w=majority',
+                        tlsCAFile=ca)
 db = client.dbsparta
 
 
@@ -29,6 +34,7 @@ def home():
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
 
 
 @app.route('/login')
@@ -66,6 +72,7 @@ def sign_in():
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+        #token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
 
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -153,12 +160,16 @@ def update_like():
 @app.route("/_get", methods=["GET"])
 def movie_get():
     movie_list = list(db.movies.find({}, {'_id': False}))
-    return jsonify({'movies':movie_list})
+    review_list = list(db.reviews.find({}, {'_id': False}))
+
+    return jsonify({'movies':movie_list, 'reviews':review_list})
 
 
 @app.route('/sign_up')
 def aa():
     return render_template('sign_up.html')
+
+
 
 
 # @app.route('/comment/<title>')
@@ -250,6 +261,9 @@ def comment_post():
 def comment_get():
     comment_list = list(db.reviews.find({}, {'_id': False}))
     return jsonify({'comments': comment_list})
+
+
+
 
 
 if __name__ == '__main__':

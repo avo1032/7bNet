@@ -17,6 +17,14 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
+        {#파비콘과 og태그#}
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta property="og:title" content="같이보자NET"/>
+    <meta property="og:description" content="넷플릭스 콘텐츠들의 리뷰를 공유하는 플랫폼입니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='Ogimage.png') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
 
     <script>
 
@@ -57,7 +65,8 @@
 </div>
 ️
 <div class="wrap">
-        <span class="main_title">{{ title }}</span>
+        <span class="main_title">{{ title }}의
+        리뷰를 작성해주세요.</span>
     <div>
         <select name="job" class="select_box" id="star">
             <option selected><span class="selected"> 평점을 골라주세요.</span></option>

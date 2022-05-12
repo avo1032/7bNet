@@ -14,19 +14,30 @@
 
     <title>같이보자Net |</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <style>
+        {#파비콘과 og태그#}
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta property="og:title" content="같이보자NET"/>
+    <meta property="og:description" content="넷플릭스 콘텐츠들의 리뷰를 공유하는 플랫폼입니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='Ogimage.png') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+        <style>
         * {
             font-family: 'Noto Sans KR', sans-serif;
         }
+
         body {
             background-color: black;
         }
+
         .banner {
             width: 306px;
             height: 94px;
 
-            background-image: url('{{ url_for("static", filename="logonetflix.png")}}');
+            background-image: url('{{ url_for("static", filename="Logonetflix.png")}}');
 
             background-position: center;
             background-size: contain;
@@ -55,11 +66,11 @@
             color: white;
             white-space: pre-line;
         }
+
         .btn {
             display: flex;
             flex-direction: row;
-            justify-content: center;
-            ;
+            justify-content: center;;
         }
 
         .contents {
@@ -77,6 +88,102 @@
             justify-content: flex-end;
         }
 
+        .card_box {
+            display: flex;
+            flex-direction: column;
+            width: 290px;
+            min-height: 500px;
+            word-wrap: break-word;
+            background-color: #2E2E2E;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, .125);
+            border-radius: 0.25rem;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card_title {
+            color: white;
+        }
+
+        .main_box {
+            max-width: 1300px;
+            width: 95%;
+            height: 100%;
+
+            margin: auto;
+        }
+
+        .review_text {
+            color: white;
+            float: right;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+        }
+
+        .star_avg {
+            color: #FF000D;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .comment_sum {
+            color: white;
+            font-weight: bold;
+        }
+
+        .card_wrap {
+            max-width: 1300px;
+            width: 95%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin: auto;
+            align-items: stretch;
+
+        }
+
+        .search-box {
+            width: 70%;
+            margin: 50px auto;
+            max-width: 700px;
+        }
+
+        .search_input {
+            width: 600px;
+            height: 40px;
+            color: white;
+            background-color: black;
+            border: 1px solid white;
+            border-radius: 4px;
+            opacity: 0.6;
+        }
+
+        .search_wrap {
+            max-width: 700px;
+            width: 90%;
+            height: 40px;
+
+            display: flex;
+            flex-direction: row;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+
+        .search_btn {
+            margin-left: 10px;
+            width: 40px;
+            background-color: #EAEAEA;
+            border: white;
+            border-radius: 4px;
+        }
+
+        .search_btn:hover {
+            background-color: #9D9D9D;
+        }
     </style>
 
     <script>
@@ -90,21 +197,36 @@
                 url: '/_get',
                 data: {},
                 success: function (response) {
+                    let rows2 = (response['reviews'])
                     let rows = response['movies']
                     for (let i = 0; i < rows.length; i++) {
                         let title = rows[i]['title']
-                        let image = rows[i]['img']
+                        let image = rows[i]['image']
+                        let reviewcount = 0;
+                        let star_sum = 0;
+                        let star_avg = 0;
+                        for(let j=0; j<rows2.length; j++){
+                            if(rows[i]['title']==rows2[j]['title']){
+                                reviewcount++;
+                                star_sum = parseInt(rows2[j]['star']) + star_sum
+                            }
+                        }
+                        if(reviewcount==0){
+                            star_avg = "0";
+                        }else{
+                            star_avg = Math.round((star_sum / reviewcount) * 100) / 100
+                        }
 
-                        let temp_html = `<div class="col" onclick="window.location.href='/comment/${title}'">
-                                            <div class="card h-100">
+                        let temp_html = `<div id="card_box(${title})" onclick="window.location.href='/comment/${title}'" class="highlight">
+                                            <div class="card_box">
                                                 <img src="${image}"
-                                                     class="card-img-top">
+                                                     class="">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">${title}</h5>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <small class="text-muted">
-                                                        <h11 class="count_star">평점</h11> <h11>리뷰 수</h11> </small>
+                                                    <h5 class="card_title">${title}</h5>
+                                                        <div>
+                                                    <small class="review_text">
+                                                        <h11>평점<span class="star_avg"> ${star_avg}</span></h11> <h11>리뷰 수 <span  class="comment_sum">${reviewcount}</span></h11> </small>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </div>`
@@ -115,21 +237,6 @@
             })
         }
 
-        function posting() {
-            let url = $('#url').val()
-            let star = $('#star').val()
-            let comment = $('#comment').val()
-
-            $.ajax({
-                type: 'POST',
-                url: '/review',
-                data: {url_give:url, star_give:star, comment_give:comment},
-                success: function (response) {
-                    alert(response['msg'])
-                    window.location.reload()
-                }
-            });
-        }
 
         function open_box(){
             $('#post-box').show()
@@ -137,24 +244,31 @@
         function close_box(){
             $('#post-box').hide()
         }
+
     </script>
 </head>
 
 <body>
-    <div class="banner_set">
-        <div class="banner" onclick="window.location.href='/'"></div>
-        <span class="nickname_banner">
+<div class="banner_set">
+    <div class="banner" onclick="window.location.href='/'"></div>
+    <span class="nickname_banner">
             <span class="nickname">{{ user_info.nickname }}</span>님,
                     안녕하세요.</span>
-    </div>
+</div>
+{#<div class="search_wrap">#}
+{#    <input id="input-word" class="search_input" type="text" placeholder="  리뷰가 궁금한 컨텐츠를 검색해보세요!">#}
+{#    <button class="search_btn" onclick="find_title()"><i class="fa fa-search" style="margin-bottom: 4px;"></i></button>#}
+{#</div>#}
 
-    <div class="contents">
-        <h2>오늘의 리뷰왕 컨텐츠🔥</h2>
+<div class="mycards">
+    <div class="card_wrap" id="cards-box">
+        <div class="contents">
+            <h2>오늘의 리뷰왕 컨텐츠🔥</h2>
+        </div>
     </div>
-    <div class="mycards">
-    <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
-    </div>
-    </div>
+</div>
+</div>
+
 </body>
 
 </html>

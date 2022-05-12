@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Title</title>
-        <!-- Bulma CSS -->
+    <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Font Awesome CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -13,23 +13,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Hi+Melody&family=Jua&display=swap"
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+
+            {#파비콘과 og태그#}
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta property="og:title" content="같이보자NET"/>
+    <meta property="og:description" content="넷플릭스 콘텐츠들의 리뷰를 공유하는 플랫폼입니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='Ogimage.png') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
+
+
     <style>
-        body{
+        body {
             background-color: black;
         }
+
         * {
-           font-family: 'Noto Sans KR', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
         }
-        .bNet{
+
+        .bNet {
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
         }
+
         .hero {
             width: 50%;
             height: 100%;
@@ -42,17 +54,20 @@
             align-items: center;
             justify-content: center;
         }
-        .hero-body > img{
+
+        .hero-body > img {
             width: 412px;
             height: 126px;
-            margin-top: 70px;
+            margin-bottom: 60px;
         }
+
         .title {
             font-weight: 800;
             font-size: 40px;
             font-family: 'Noto Sans KR', sans-serif;
             color: white;
         }
+
         /*.section{!* Layout Properties *!*/
         /*    top: 269px;*/
         /*    left: 1054px;*/
@@ -63,43 +78,64 @@
         /*    background-color: green;*/
         /*    */
         /*}*/
-        .section{
+        .section {
             width: 50%;
             height: 1000px;
             float: right;
-
-
         }
-        .id_pw{
+
+        .id_pw {
             /* UI Properties */
             text-align: left;
             letter-spacing: 0px;
             color: white;
             opacity: 1;
-            font-size: 25px;
+            font-size: 18px;
+            font-weight: 500;
         }
-        .is-primary{
+
+        .is-primary {
+            width: 430px;
+            height: 48px;
+            margin-top: 14px;
+            background-color: black;
+            border: 1px solid white;
+            color: white;
+            font-size: 16px;
+        }
+
+        .is-primary.input {
+            border: 1px solid white;
+            background-color: black;
+        }
+
+        .is-primary::placeholder {
+            color: #9D9D9D;
+            font-size: 14px;
+        }
+
+        .is-white {
             width: 430px;
             height: 56px;
+            margin-top: 60px;
+            font-weight: bold;
         }
-        .is-white{
+
+        .is-black2 {
             width: 430px;
-            height: 69px;
-        }
-        .is-black2{
-            width: 430px;
-            height: 69px;
+            height: 56px;
             border: 1px solid white;
             border-radius: 10px;
             opacity: 1;
             background-color: black;
-            color:white;
+            color: white;
             margin-top: 20px;
+            font-weight: bold;
 
         }
     </style>
     <script>
-        function movesign_up(){
+        function movesign_up() {
             location.href = "/sign_up"
         }
 
@@ -147,21 +183,20 @@
 <div class="bNet">
     <section class="hero">
         <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-            <h1 class="title">뭘 봐야할지 모르겠을 땐,</h1>
-            <img src="../static/logonetflix.png">
+            <img src="../static/netlogo10.png">
         </div>
     </section>
     <section class="section">
-        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
         <h1 class="id_pw">아이디</h1>
-        <input class="input is-primary" type="text" id="input-username" placeholder="아이디를 입력해주세요" style="margin-top:10px;">
+        <input class="input is-primary" type="text" id="input-username" placeholder="아이디를 입력해주세요">
         <h1 id="help-id-login" class="help is-danger"></h1>
 
         <h1 class="id_pw" style="margin-top: 10px;">비밀번호</h1>
         <input class="input is-primary" type="password" id="input-password" placeholder="비밀번호를 입력해주세요">
         <h1 id="help-password-login" class="help is-danger"></h1>
 
-        <button class="button is-white" style="margin-top: 100px;" onclick="sign_in()">로그인하기</button>
+        <button class="button is-white" onclick="sign_in()">로그인하기</button>
         <br>
         <button class="button is-black2" onclick="movesign_up()">회원가입하기</button>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Title</title>
-        <!-- Bulma CSS -->
+    <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <!-- Font Awesome CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -13,22 +13,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Hi+Melody&family=Jua&display=swap"
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+
+            {#파비콘과 og태그#}
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta property="og:title" content="같이보자NET"/>
+    <meta property="og:description" content="넷플릭스 콘텐츠들의 리뷰를 공유하는 플랫폼입니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='Ogimage.png') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
     <style>
-        body{
+        body {
             background-color: black;
         }
+
         * {
-           font-family: 'Noto Sans KR', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
         }
-        .bNet{
+
+        .bNet {
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
         }
+
         .hero {
             width: 50%;
             height: 100%;
@@ -41,17 +53,20 @@
             align-items: center;
             justify-content: center;
         }
-        .hero-body > img{
+
+        .hero-body > img {
             width: 412px;
             height: 126px;
-            margin-top: 70px;
         }
+
+
         .title {
             font-weight: 800;
             font-size: 40px;
             font-family: 'Noto Sans KR', sans-serif;
             color: white;
         }
+
         /*.section{!* Layout Properties *!*/
         /*    top: 269px;*/
         /*    left: 1054px;*/
@@ -62,46 +77,103 @@
         /*    background-color: green;*/
         /*    */
         /*}*/
-        .section{
+        .section {
             width: 50%;
             height: 1000px;
             float: right;
 
             margin: auto;
         }
-        .id_pw{
+
+        .id_pw {
             /* UI Properties */
             text-align: left;
             letter-spacing: 0px;
             color: white;
             opacity: 1;
-            font-size: 25px;
+            font-size: 18px;
+            font-weight: 500;
         }
-        .is-primary{
+
+        .is-primary {
             width: 330px;
-            height: 56px;
-        }
-        .is-white{
-            width: 460px;
-            height: 69px;
-        }
-        .is-black2{
-            width: 460px;
-            height: 69px;
+            height: 48px;
+            background-color: black;
             border: 1px solid white;
-            border-radius: 10px;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+
+        }
+
+        .is-primary::placeholder {
+            color: #9D9D9D;
+            font-size: 14px;
+        }
+
+        .is-primary:input {
+             border: 1px solid white;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .is-white {
+            width: 460px;
+            height: 56px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .is-white:hover {
+            background-color: black;
+        }
+
+        .is-black2 {
+            width: 460px;
+            height: 56px;
+            border-radius: 8px;
+            border: 1px solid white;
             opacity: 1;
             background-color: black;
-            color:white;
+            color: white;
+            font-weight: bold;
         }
-        .button2{
+
+        .is-black2:hover {
+            color: #797979;
+            border: 1px solid #797979;
+        }
+
+        .button2 {
             border: 1px solid white;
             border-radius: 6px;
             opacity: 1;
             background-color: black;
-            color:white;
+            color: white;
             font-size: 17px;
         }
+
+        .section_box {
+            width: 600px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding-top: 100px;
+            padding-bottom: 140px;
+        }
+
+        .id_box {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .nickname_box {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
     </style>
     <script>
         function sign_up() {
@@ -165,6 +237,7 @@
             });
 
         }
+
         function is_username(asValue) {
             var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
             return regExp.test(asValue);
@@ -247,7 +320,8 @@
                 }
             });
         }
-        function back(){
+
+        function back() {
             location.href = "/login"
         }
     </script>
@@ -256,35 +330,51 @@
 <div class="bNet">
     <section class="hero">
         <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-            <h1 class="title">뭘 봐야할지 모르겠을 땐,</h1>
-            <img src="../static/logonetflix.png">
+            <img src="../static/netlogo10.png" onclick="window. location.href = '/login'">
         </div>
     </section>
-    <section class="section">
+    <section class="section_box">
+
         <h1 class="id_pw">아이디</h1>
-        <input class="input is-primary" type="text" placeholder="아이디를 입력해주세요" id="input-username" style="margin-top:10px;">
-        <button onclick="check_dup()" class="button2" style="width: 124px; height: 56px; margin-top: 10px; margin-left: 10px;">중복확인</button>
+        <div class="id_box">
+            <input class="is-primary" type="text" placeholder="  아이디를 입력해주세요" id="input-username"
+                   style="margin-top:10px;">
+            <button onclick="check_dup()" class="button2"
+                    style="width: 124px; height: 48px; margin-top: 10px; margin-left: 10px; border: 1px solid white; font-weight: 500; font-size: 16px;">
+                중복확인
+            </button>
+
+        </div>
         <h1 id="help-id" class="help is-danger">아이디는 2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.</h1>
         <p id="help-id-login" class="help is-danger"></p>
-
         <h1 class="id_pw">닉네임</h1>
-        <input class="input is-primary" type="text" placeholder="닉네임을 입력해주세요" id="input-nickname" style="margin-top:10px;">
-        <button onclick="check_dup_nick()" class="button2" style="width: 124px; height: 56px; margin-top: 10px; margin-left: 10px;">중복확인</button>
+        <div class="nickname_box">
+            <input class="is-primary" type="text" placeholder=" 닉네임을 입력해주세요" id="input-nickname"
+                   style="margin-top:10px;">
+            <button onclick="check_dup_nick()" class="button2"
+                    style="width: 124px; height: 48px; margin-top: 10px; margin-left: 10px; border: 1px solid white; font-weight: 500; font-size: 16px;">
+                중복확인
+            </button>
+
+        </div>
         <h1 id="help-nick" class="help is-danger">닉네임은 2자 이상 16자 이하, 영어 또는 숫자 또는 한글만 입력 가능합니다.</h1>
         <p id="help-nick-login" class="help is-danger"></p>
 
+
         <h1 class="id_pw" style="margin-top: 10px;">비밀번호</h1>
-        <input class="input is-primary" type="password" placeholder="비밀번호를 입력해주세요" id="input-password" style="width: 460px;">
+        <input class="is-primary" type="password" placeholder="  비밀번호를 입력해주세요" id="input-password"
+               style="width: 460px; margin-top:10px;">
         <h1 id="help-password" class="help is-danger">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도
-                                사용 가능합니다.</h1>
+            사용 가능합니다.</h1>
 
         <h1 class="id_pw" style="margin-top: 10px;">비밀번호 재입력</h1>
-        <input class="input is-primary" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요" id="input-password2" style="width: 460px;">
+        <input class="is-primary" type="password" placeholder="  비밀번호를 다시 한 번 입력해주세요" id="input-password2"
+               style="width: 460px; margin-top:10px;">
         <h1 id="help-password2" class="help is-danger">비밀번호를 다시 한 번 입력해주세요.</h1>
 
-        <button class="button is-black2" style="margin-top: 20px;" onclick="sign_up()">회원가입하기</button>
+        <button class="button is-white" style="margin-top: 40px;" onclick="sign_up()">회원가입하기</button>
         <br>
-        <button class="button is-white" style="margin-top: 20px;" onclick="back()">돌아가기</button>
+        <button class="button is-black2" onclick="back()">돌아가기</button>
 
     </section>
 </div>

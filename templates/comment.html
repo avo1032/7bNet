@@ -22,7 +22,17 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
+        {#파비콘과 og태그#}
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta property="og:title" content="같이보자NET"/>
+    <meta property="og:description" content="넷플릭스 콘텐츠들의 리뷰를 공유하는 플랫폼입니다."/>
+    <meta property="og:image" content="{{ url_for('static', filename='Ogimage.png') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
     <script>
+        let reviewcount = 0;
+        let star_sum = 0;
         $(document).ready(function () {
             show_comment();
         });
@@ -44,7 +54,7 @@
 
                         let star_image = '⭐'.repeat(star)
 
-                        if (comment != "" && star != "평점을 골라주세요.") {
+                        if (comment != "" && star != "평점을 골라주세요." && title=="{{ title }}") {
                             let temp_html = `<div class="comment_box" id="comment_box(${num})">
                                                 <div class="comment_body">
                                                      <span class="user_star">${star_image}️</span>
@@ -56,12 +66,19 @@
                                                                     <span class="like_icon"></span><span class="like_num">${like_count}</span>
                                                                 </div>
                                             </div>`
-                            if(title=="{{ title }}")
+                            reviewcount++;
+                            star_sum = parseInt(star) + star_sum;
                             $('#comment_list').append(temp_html)
                         }
 
-
                     }
+                    let star_avg = Math.round((star_sum / reviewcount) * 100) / 100
+                    $('#re').append(
+                        `
+                            <button class="star">평점 <span class="star_num">${star_avg}</span></button>
+                            <button class="comment">리뷰 수 <span class="comment_num">${reviewcount}</span></button>
+                        `
+                    )
                 }
             });
         }
@@ -74,11 +91,13 @@
     <span class="back" onclick="window.location.href='/'"></span>
     <div class="banner" onclick="window.location.href='/'"></div>
     <span class="nickname_banner"><span class="nickname">{{ user_info.nickname }}</span>님,
-                안녕하세요.</span></div>
+                안녕하세요.</span>
 </div>
 <div class="wrap">
-    <button class="star">평점 <span class="star_num">4.7</span></button>
-    <button class="comment">리뷰 수 <span class="comment_num">435</span></button>
+    <div id="re">
+{#    <button class="star">평점 <span class="star_num">55</span></button>#}
+{#    <button class="comment">리뷰 수 <span class="comment_num">435</span></button>#}
+    </div>
     <div class="titleWithBtn">
         <span class="main_title">{{ title }}</span>
         <button class="comment_btn" onclick="window.location.href='/write/{{ title }}'">리뷰 작성하기</button>
@@ -90,24 +109,24 @@
                 min-width: 412px;
                 width: 412px;
                 height: 610px;
-                background-image: url('{{ image.img }}');
+                background-image: url('{{ image.image }}');
                 background-position: center 30%;
                 background-size: contain;
                 color: white;
                 margin-top: 20px;">
         </div>
         <div class="comment_box_wrap" id="comment_list">
-            <div class="comment_box">
-                <div class="comment_body">
-                    <span class="user_star">⭐⭐⭐️</span>
-                    <span class="nicknameWithComment"><span class="nickname">김르탄</span>
-                        생각보다 넘 재밌어요</span>
-
-                </div>
-                <div class="like_set">
-                    <span class="like_icon"></span><span class="like_num">23</span>
-                </div>
-            </div>
+{#            <div class="comment_box">#}
+{#                <div class="comment_body">#}
+{#                    <span class="user_star">⭐⭐⭐️</span>#}
+{#                    <span class="nicknameWithComment"><span class="nickname">김르탄</span>#}
+{#                        생각보다 넘 재밌어요</span>#}
+{##}
+{#                </div>#}
+{#                <div class="like_set">#}
+{#                    <span class="like_icon"></span><span class="like_num">23</span>#}
+{#                </div>#}
+{#            </div>#}
 
         </div>
     </div>
